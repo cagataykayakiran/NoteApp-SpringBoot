@@ -3,10 +3,9 @@ package noteApp.controller;
 
 import noteApp.Entitiy.NoteEntity;
 import noteApp.service.NoteService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class NoteController {
@@ -17,30 +16,30 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-
     @GetMapping("/notes")
-    public List<NoteEntity> allNotes() {
-        return noteService.getAllNote();
+    public ResponseEntity<List<NoteEntity>> allNotes() {
+        return ResponseEntity.ok(noteService.getAllNote());
     }
 
     @GetMapping("/notes/{id}")
-    public Optional<NoteEntity> getNoteById(@PathVariable Long id) {
-        return noteService.getNoteById(id);
+    public ResponseEntity<NoteEntity> getNoteById(@PathVariable Long id) {
+        return ResponseEntity.ok(noteService.getNoteById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteNote(@PathVariable Long id) {
+    public ResponseEntity<String> deleteNote(@PathVariable Long id) {
         noteService.deleteByIdNote(id);
+        return ResponseEntity.ok("Note successfully deleted");
     }
 
     @PostMapping("/save")
-    public NoteEntity saveNote(@RequestBody NoteEntity noteEntity) {
-        return noteService.saveNote(noteEntity);
+    public ResponseEntity<NoteEntity> saveNote(@RequestBody NoteEntity noteEntity) {
+        return ResponseEntity.ok(noteService.saveNote(noteEntity));
     }
 
     @PutMapping("/edit/{id}")
-    public NoteEntity editNote(@PathVariable Long id, @RequestBody NoteEntity noteEntityDetails) {
-        return noteService.editNote(id,noteEntityDetails);
+    public ResponseEntity<NoteEntity> editNote(@PathVariable Long id, @RequestBody NoteEntity noteEntityDetails) {
+        return ResponseEntity.ok(noteService.editNote(id,noteEntityDetails));
     }
 
 
