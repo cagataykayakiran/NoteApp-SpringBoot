@@ -5,7 +5,6 @@ import noteApp.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NoteService {
@@ -39,7 +38,7 @@ public class NoteService {
         return null;
     }
 
-    public Optional<NoteEntity> getNoteById(Long id) {
-        return noteRepository.findById(id);
+    public NoteEntity getNoteById(Long id) {
+        return noteRepository.findById(id).orElseThrow(() -> new NullPointerException("Note not found"));
     }
 }
