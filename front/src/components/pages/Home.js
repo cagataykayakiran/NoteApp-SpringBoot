@@ -1,15 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import {Link} from "react-router-dom";
-import Button from "bootstrap/js/src/button";
 
 export default function Home() {
 
     const [note, setNote] = useState([])
+    const authHeader = () => {
+        return { Authorization: "Bearer " + localStorage.getItem("tokenKey")};
+    };
+
+    const user = localStorage.getItem("currentUser")
 
 
-    useEffect(  () => {
-          axios.get("/notes").then(res => setNote(res.data))
+    useEffect(() => {
+        console.log(authHeader())
+        axios.get("/notes/" + user , {headers : authHeader()}).then(res => setNote(res.data))
     }, [])
 
 
@@ -29,10 +34,11 @@ export default function Home() {
 
     return (
         <div className={"container"}>
+            <h2 className={"p-2"}>Note List</h2>
             <div className={"py-4"}>
 
                 <table className="table border shadow">
-                    <thead >
+                    <thead>
                     <tr>
                         <th scope={"col"}>#</th>
                         <th scope="col">Content</th>
@@ -45,16 +51,17 @@ export default function Home() {
                         note.map(
                             (note, index) =>
                                 <tr>
-                                    <td scope={"row"} key={index}>{index+1}</td>
+                                    <td scope={"row"} key={index}>{index + 1}</td>
                                     <td>{note.content}</td>
                                     <td>{note.text}</td>
                                     <td>
-                                        <Link to={"/edit/" + note.id} className={"btn btn-outline-primary mx-2"}>Edit</Link>
+                                        <Link to={"/edit/" + note.id}
+                                              className={"btn btn-outline-primary mx-2"}>Edit</Link>
                                         <button
                                             className={"btn btn-danger mx-2"} onClick={() => deleteNote(note.id, index)}
-                                            >Delete</button>
+                                        >Delete
+                                        </button>
                                     </td>
-
                                 </tr>
                         )
                     }
