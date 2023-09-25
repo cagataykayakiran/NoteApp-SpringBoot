@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
 
-export default function EditUser() {
+export default function EditNote() {
 
     const [text, setText] = useState("")
     const [content, setContent] = useState("")
