@@ -2,16 +2,20 @@ import React, {useState} from 'react'
 import axios from "axios";
 import {NavLink, useNavigate} from "react-router-dom";
 
-export default function AddUser() {
+export default function AddNote() {
 
     const [text, setText] = useState("")
     const [content, setContent] = useState("")
     const navigate = useNavigate()
+    const userid = localStorage.getItem("currentUser")
+    const authHeader = () => {
+        return { Authorization: "Bearer " + localStorage.getItem("tokenKey")};
+    };
 
      function onSubmit(e) {
         e.preventDefault()
-        const body = { text, content }
-         axios.post("/save", body).then((res) => navigate("/"))
+        const body = { text, content, userid }
+         axios.post("/save", body, {headers : authHeader()}).then((res) => navigate("/"))
 
     }
 
