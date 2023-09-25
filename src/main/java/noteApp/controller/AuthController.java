@@ -2,6 +2,7 @@ package noteApp.controller;
 
 import lombok.RequiredArgsConstructor;
 import noteApp.dto.UserLoginRequest;
+import noteApp.dto.UserLoginResponse;
 import noteApp.dto.UserRegisterRequest;
 import noteApp.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,12 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserRegisterRequest userRegisterRequest) {
+    public ResponseEntity<UserLoginResponse> register(@RequestBody UserRegisterRequest userRegisterRequest) {
         return ResponseEntity.ok(authenticationService.register(userRegisterRequest));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserLoginRequest userLoginRequest) {
-        return ResponseEntity.ok(authenticationService.login(userLoginRequest));
+    public ResponseEntity<?> auth(@RequestBody UserLoginRequest userLoginRequest) {
+        return ResponseEntity.ok(authenticationService.auth(userLoginRequest));
     }
 }
