@@ -5,6 +5,7 @@ import noteApp.Entitiy.User;
 import noteApp.dto.UserLoginRequest;
 import noteApp.dto.UserLoginResponse;
 import noteApp.dto.UserRegisterRequest;
+import noteApp.enums.Role;
 import noteApp.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,23 +19,27 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
-    public String register(UserRegisterRequest userRegisterRequest) {
+    public UserLoginResponse register(UserRegisterRequest userRequest) {
         User user = User.builder()
-                .firstname(userRegisterRequest.getFirstname())
-                .lastname(userRegisterRequest.getLastname())
-                .username(userRegisterRequest.getUsername())
-                .password(passwordEncoder.encode(userRegisterRequest.getPassword()))
+                .username(userRequest.getUsername())
+                .firstname(userRequest.getFirstname())
+                .lastname(userRequest.getLastname())
+                .password(passwordEncoder.encode(userRequest.getPassword()))
+                .role(Role.USER)
                 .build();
         userRepository.save(user);
-        return "User successfully created";
+        String token = jwtService.generateToken(user);
+        return UserLoginResponse.builder().token(token).id(user.getId()).build();
     }
 
-    public UserLoginResponse login(UserLoginRequest userLoginRequest) {
-        authenticationManager
-                .authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                userLoginRequest.getUsername(), userLoginRequest.getPassword()));
-        return UserLoginResponse.builder().username(userLoginRequest.getUsername()).build();
+    public UserLoginResponse auth(UserLoginRequest userRequest) {
+        authenticationManager.
+                authenticate(new UsernamePasswordAuthenticationToken
+                        (userRequest.getUsername(), userRequest.getPassword()));
+        User user = userRepository.findByUsername(userRequest.getUsername()).orElse(null);
+        String token = jwtService.generateToken(user);
+        return UserLoginResponse.builder().token(token).id(user.getId()).build();
     }
 }
