@@ -2,6 +2,7 @@ package noteApp.controller;
 
 
 import noteApp.Entitiy.NoteEntity;
+import noteApp.dto.CreateNoteRequest;
 import noteApp.service.NoteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,8 @@ public class NoteController {
     }
 
     @GetMapping("/notes/{id}")
-    public ResponseEntity<NoteEntity> getNoteById(@PathVariable Long id) {
-        return ResponseEntity.ok(noteService.getNoteById(id));
+    public ResponseEntity<List<NoteEntity>> getNoteById(@PathVariable Long id) {
+        return ResponseEntity.ok(noteService.getNoteByUserId(id));
     }
 
     @DeleteMapping("/delete/{id}")
@@ -33,8 +34,8 @@ public class NoteController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<NoteEntity> saveNote(@RequestBody NoteEntity noteEntity) {
-        return ResponseEntity.ok(noteService.saveNote(noteEntity));
+    public ResponseEntity<NoteEntity> saveNote(@RequestBody CreateNoteRequest createNoteRequest) {
+        return ResponseEntity.ok(noteService.saveNote(createNoteRequest));
     }
 
     @PutMapping("/edit/{id}")
