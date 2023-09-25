@@ -7,5 +7,6 @@ import lombok.Data;
 @Builder
 public class UserLoginResponse {
 
-    private String username;
+    private String token;
+    private Long id;
 }
