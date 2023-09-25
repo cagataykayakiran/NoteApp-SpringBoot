@@ -1,26 +1,36 @@
 package noteApp.service;
 
+import lombok.RequiredArgsConstructor;
 import noteApp.Entitiy.NoteEntity;
+import noteApp.Entitiy.User;
+import noteApp.dto.CreateNoteRequest;
 import noteApp.repository.NoteRepository;
+import noteApp.repository.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class NoteService {
 
     private final NoteRepository noteRepository;
-
-    public NoteService(NoteRepository noteRepository) {
-        this.noteRepository = noteRepository;
-    }
+    private final UserRepository userRepository;
 
     public List<NoteEntity> getAllNote() {
         return noteRepository.findAll();
     }
 
-    public NoteEntity saveNote(NoteEntity noteEntity) {
-        return noteRepository.save(noteEntity);
+    public NoteEntity saveNote(CreateNoteRequest createNoteRequest) {
+        User user = userRepository.findById(createNoteRequest.getUserid()).
+                orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        NoteEntity note = NoteEntity.builder()
+                .content(createNoteRequest.getContent())
+                .text(createNoteRequest.getText())
+                .user(user)
+                .build();
+        return noteRepository.save(note);
     }
 
     public void deleteByIdNote(Long id) {
@@ -38,7 +48,7 @@ public class NoteService {
         return null;
     }
 
-    public NoteEntity getNoteById(Long id) {
-        return noteRepository.findById(id).orElseThrow(() -> new NullPointerException("Note not found"));
+    public List<NoteEntity> getNoteByUserId(Long id) {
+        return noteRepository.findByUser_Id(id);
     }
 }
