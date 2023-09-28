@@ -1,4 +1,4 @@
-package noteApp.Entitiy;
+package noteApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

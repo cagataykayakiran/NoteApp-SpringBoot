@@ -1,4 +1,4 @@
-package noteApp.Entitiy;
+package noteApp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

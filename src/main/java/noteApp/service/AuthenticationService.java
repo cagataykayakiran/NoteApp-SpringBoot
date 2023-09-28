@@ -1,7 +1,7 @@
 package noteApp.service;
 
 import lombok.RequiredArgsConstructor;
-import noteApp.Entitiy.User;
+import noteApp.entity.User;
 import noteApp.dto.UserLoginRequest;
 import noteApp.dto.UserLoginResponse;
 import noteApp.dto.UserRegisterRequest;

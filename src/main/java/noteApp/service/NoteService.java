@@ -1,8 +1,8 @@
 package noteApp.service;
 
 import lombok.RequiredArgsConstructor;
-import noteApp.Entitiy.NoteEntity;
-import noteApp.Entitiy.User;
+import noteApp.entity.NoteEntity;
+import noteApp.entity.User;
 import noteApp.dto.CreateNoteRequest;
 import noteApp.repository.NoteRepository;
 import noteApp.repository.UserRepository;

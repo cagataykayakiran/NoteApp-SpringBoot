@@ -1,7 +1,7 @@
 package noteApp.controller;
 
 
-import noteApp.Entitiy.NoteEntity;
+import noteApp.entity.NoteEntity;
 import noteApp.dto.CreateNoteRequest;
 import noteApp.service.NoteService;
 import org.springframework.http.ResponseEntity;
