@@ -39,10 +39,10 @@ export default function Home() {
                     <div className={"col-md-4"} key={index}>
                         <div className="card mb-4">
                             <div className="card-body">
-                                <h5 className="card-title">Note</h5>
+                                <h5 className="card-title">Note #{index + 1}</h5>
                                 <p className="card-text"><strong>Content:</strong> {note.content}</p>
                                 <p className="card-text"><strong>Text:</strong> {note.text}</p>
-                                <Link to={"/edit/" + note.id} className={"btn btn-outline-primary mx-2"}>Edit</Link>
+                                <Link to={"/edit/" + note.id} className={"btn btn-warning mx-2"}>Edit</Link>
                                 <button className={"btn btn-danger mx-2"} onClick={() => deleteNote(note.id, index)}>Delete</button>
                             </div>
                         </div>
@@ -50,5 +50,6 @@ export default function Home() {
                 ))}
             </div>
         </div>
+
     )
 }
