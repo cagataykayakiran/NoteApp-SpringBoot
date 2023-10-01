@@ -29,6 +29,7 @@ export default function Auth() {
             .then(response => {
                 localStorage.setItem("tokenKey", response.data.token);
                 localStorage.setItem("currentUser", response.data.id);
+                localStorage.setItem("username", response.data.username);
                 navigate("/")
             })
             .catch(err => {
