@@ -3,10 +3,10 @@ import {Navigate, Outlet} from "react-router-dom";
 
 
 function RequireAuth() {
-    const user = localStorage.getItem("currentUser");
+    const token = localStorage.getItem("tokenKey");
 
     return (
-        user ? <Outlet/> : <Navigate to={"/login"}/>
+        token ? <Outlet/> : <Navigate to={"/login"}/>
     );
 }
 
