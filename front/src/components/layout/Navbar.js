@@ -3,8 +3,9 @@ import {NavLink, useNavigate} from "react-router-dom";
 
 export default function Navbar() {
 
-    const user = localStorage.getItem("currentUser");
+    const user = localStorage.getItem("username");
     const navigate = useNavigate();
+    console.log(user)
 
     function onClick() {
         localStorage.removeItem("currentUser")
@@ -14,13 +15,13 @@ export default function Navbar() {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
                 <div className="container">
                     <div style={{ display: 'flex' }}>
-                        <NavLink className={"btn btn-primary "} to={"/save"}>Add Note</NavLink>
+                        <NavLink className={"btn btn-success text-truncate "} to={"/save"}>Add Note</NavLink>
                     </div>
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="#">Note List</a>
+                        <a className="navbar-brand position-absolute top-50 start-50 translate-middle" href="#">Note List</a>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +34,9 @@ export default function Navbar() {
                                 <NavLink onClick={onClick} className={"btn btn-primary"} to={"/login"}>Login/Register</NavLink>
                         :
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <span className="me-5 text-white">Hoş geldiniz, {user.username}!</span>
+                                    <span className="me-5 text-white text-truncate">Hoşgeldiniz, {user}!</span>
                                     <NavLink onClick={onClick} className={"btn btn-primary"} style={{ marginRight: '10px' }} to={"/profile"}>Profile</NavLink>
-                                    <NavLink onClick={onClick} className={"btn btn-primary"} to={"/home"}>Logout</NavLink>
+                                    <NavLink onClick={onClick} className={"btn btn-danger"} to={"/home"}>Logout</NavLink>
                                 </div>
                         }
                     </div>
