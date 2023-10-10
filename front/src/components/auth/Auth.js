@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 export default function Auth() {
 
@@ -30,6 +31,7 @@ export default function Auth() {
                 localStorage.setItem("tokenKey", response.data.token);
                 localStorage.setItem("currentUser", response.data.id);
                 localStorage.setItem("username", response.data.username);
+                console.log(jwt_decode(response.data.token));
                 navigate("/")
             })
             .catch(err => {
