@@ -41,9 +41,11 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails user) {
+
+        Claims claims = Jwts.claims().setSubject(user.getUsername());
+        claims.put("authorities", user.getAuthorities());
         return Jwts.builder()
-                .setClaims(new HashMap<>())
-                .setSubject(user.getUsername())
+                .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
