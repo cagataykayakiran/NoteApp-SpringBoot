@@ -1,15 +1,28 @@
 import React from 'react'
 import {NavLink, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 export default function Navbar() {
 
     const user = localStorage.getItem("username");
     const navigate = useNavigate();
     console.log(user)
+    const authHeader = () => {
+        return { Authorization: "Bearer " + localStorage.getItem("tokenKey")};
+    };
 
     function onClick() {
         localStorage.removeItem("currentUser")
         localStorage.removeItem("tokenKey")
+        localStorage.removeItem("username")
+        navigate("/")
+    }
+
+    function logout() {
+        axios.post("/api/auth/logout", null,  {headers: authHeader()}).then(r => console.log(r))
+        localStorage.removeItem("currentUser")
+        localStorage.removeItem("tokenKey")
+        localStorage.removeItem("username")
         navigate("/")
     }
 
@@ -36,7 +49,7 @@ export default function Navbar() {
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <span className="me-5 text-white text-truncate">Hoşgeldiniz, {user}!</span>
                                     <NavLink onClick={onClick} className={"btn btn-primary"} style={{ marginRight: '10px' }} to={"/profile"}>Profile</NavLink>
-                                    <NavLink onClick={onClick} className={"btn btn-danger"} to={"/home"}>Logout</NavLink>
+                                    <NavLink onClick={logout} className={"btn btn-danger"} to={"/home"}>Logout</NavLink>
                                 </div>
                         }
                     </div>
