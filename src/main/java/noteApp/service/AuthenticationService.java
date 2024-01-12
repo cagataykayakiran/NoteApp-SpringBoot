@@ -8,7 +8,7 @@ import noteApp.dto.UserRegisterRequest;
 import noteApp.enums.Role;
 import noteApp.repository.UserRepository;
 import noteApp.token.Token;
-import noteApp.token.TokenRepository;
+import noteApp.repository.TokenRepository;
 import noteApp.token.TokenType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
