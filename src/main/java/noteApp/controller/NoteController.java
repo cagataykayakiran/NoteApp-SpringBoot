@@ -1,7 +1,7 @@
 package noteApp.controller;
 
 
-import noteApp.entity.NoteEntity;
+import noteApp.entity.Note;
 import noteApp.dto.CreateNoteRequest;
 import noteApp.service.NoteService;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +18,12 @@ public class NoteController {
     }
 
     @GetMapping("/notes")
-    public ResponseEntity<List<NoteEntity>> allNotes() {
+    public ResponseEntity<List<Note>> allNotes() {
         return ResponseEntity.ok(noteService.getAllNote());
     }
 
     @GetMapping("/notes/{id}")
-    public ResponseEntity<List<NoteEntity>> getNoteById(@PathVariable Long id) {
+    public ResponseEntity<List<Note>> getNoteById(@PathVariable Long id) {
         return ResponseEntity.ok(noteService.getNoteByUserId(id));
     }
 
@@ -34,13 +34,13 @@ public class NoteController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<NoteEntity> saveNote(@RequestBody CreateNoteRequest createNoteRequest) {
+    public ResponseEntity<Note> saveNote(@RequestBody CreateNoteRequest createNoteRequest) {
         return ResponseEntity.ok(noteService.saveNote(createNoteRequest));
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<NoteEntity> editNote(@PathVariable Long id, @RequestBody NoteEntity noteEntityDetails) {
-        return ResponseEntity.ok(noteService.editNote(id,noteEntityDetails));
+    public ResponseEntity<Note> editNote(@PathVariable Long id, @RequestBody Note noteDetails) {
+        return ResponseEntity.ok(noteService.editNote(id, noteDetails));
     }
 
 

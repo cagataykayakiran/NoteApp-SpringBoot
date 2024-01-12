@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter @Setter
 @Builder
-public class NoteEntity {
+public class Note {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

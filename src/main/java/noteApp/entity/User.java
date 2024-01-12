@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany(mappedBy = "user")
-    private List<NoteEntity> notes;
+    private List<Note> notes;
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
